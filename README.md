@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# English for AI Building
 
-## Getting Started
+A 4-week **English for Specific Purposes** course where Indonesian (and later Cambodian) students learn English, design thinking, Socratic questioning and prompt engineering by **building a real project with AI**.
 
-First, run the development server:
+## What's inside
+
+| Part | Route | What it does |
+|---|---|---|
+| Course | `/course` | Overview, 4 weekly lesson plans (3 × 2 h sessions each), assessment rubrics. Source: `content/course/*.md`. Edit the Markdown to change the course. |
+| Project Studio | `/studio` | Design-thinking canvas (Empathize → Define → Ideate → Prototype → Test) with a **Socratic coach** that asks questions, suggests English upgrades and drafts canvas text from the student's own words. Generates a bilingual **project brief**. |
+| Prompt Lab | `/lab` | Student writes a rough prompt in Indonesian/English/mixed → what the AI understood, direct translation, CRAFT check, **3 expanded English prompts** (Starter / Structured / Advanced) each with a translation, Socratic questions to refine, vocabulary and a grammar tip. |
+| Portfolio | `/portfolio` | Saved prompts with reflections; exports brief + canvas + prompt log as Markdown for assessment. |
+
+Student work is stored in the browser (localStorage). No accounts and no database.
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local   # add DEEPSEEK_API_KEY
+npm install
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production: `npm run build && npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## AI details
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/lib/ai.ts` calls DeepSeek's OpenAI-compatible Chat Completions API (`https://api.deepseek.com`) in JSON mode. The Zod schema from `src/lib/schemas.ts` is converted to JSON Schema and put in the system prompt; the reply is validated with Zod and retried once if it doesn't match.
+- System prompts live in `src/lib/prompts.ts` (DeepSeek caches repeated prompt prefixes automatically).
+- Default model is `deepseek-chat`. Override with `DEEPSEEK_MODEL`.
 
-## Learn More
+## Adding Cambodia (Khmer)
 
-To learn more about Next.js, take a look at the following resources:
+The learner-language selector already offers Khmer (beta): every AI output that has an `_l1` field comes back in Khmer, and the Indonesian glosses in the interface are hidden. To finish the Cambodia version:
+1. Add Khmer UI glosses (the `Bi` component in `src/components/lang.tsx` and labels in `src/lib/design-thinking.ts`).
+2. Add a Khmer version of the course Markdown (for example `content/course/km/`) with local challenge areas and the errors Khmer speakers commonly make in English.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+content/course/        Curriculum (Markdown)
+src/app/               Pages + API routes (/api/coach, /api/brief, /api/lab)
+src/components/        UI pieces
+src/lib/               AI client, prompts, schemas, design-thinking stages, storage
+```

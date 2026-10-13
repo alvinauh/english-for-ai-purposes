@@ -1,69 +1,95 @@
-import Image from "next/image";
+import Link from "next/link";
+
+const WEEKS = [
+  { n: 1, stage: "Empathize", title: "Talking to people, talking to AI", out: "Empathy map + interview insights" },
+  { n: 2, stage: "Define + Ideate", title: "From problem to ideas", out: "Project brief" },
+  { n: 3, stage: "Prototype", title: "Building with AI", out: "Working prototype + prompt log" },
+  { n: 4, stage: "Test + Present", title: "Feedback, improve, pitch", out: "Final project + 3-minute pitch" },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="space-y-12">
+      <section className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-center">
+        <div className="space-y-4">
+          <p className="text-sm font-semibold uppercase tracking-widest text-accent">English for Specific Purposes · 4 weeks</p>
+          <h1 className="text-4xl font-extrabold leading-tight md:text-5xl">
+            Learn English by building a real project with AI.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-muted italic">
+            Belajar bahasa Inggris sambil membangun proyek nyata dengan AI.
+          </p>
+          <p className="max-w-xl leading-relaxed">
+            Think like a designer, ask better questions, and write prompts that work. Write your ideas in
+            Bahasa Indonesia — the app helps you turn them into clear English and shows you why each
+            change matters.
+          </p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Link href="/studio" className="rounded-lg bg-accent px-5 py-2.5 font-semibold text-white hover:bg-accent-strong">
+              Start your project →
+            </Link>
+            <Link href="/course" className="rounded-lg border border-line bg-surface px-5 py-2.5 font-semibold hover:bg-subtle">
+              See the 4-week plan
+            </Link>
+          </div>
+        </div>
+        <div className="rounded-2xl border border-line bg-surface p-5 text-sm shadow-sm">
+          <p className="mb-1 text-xs font-semibold uppercase text-muted">You write</p>
+          <p className="mb-4 rounded-lg bg-subtle p-3">buatin caption jualan keripik pedas buat instagram</p>
+          <p className="mb-1 text-xs font-semibold uppercase text-muted">Prompt Lab gives you</p>
+          <p className="rounded-lg bg-accent-soft p-3 leading-relaxed">
+            <strong>Role:</strong> You are a social media copywriter for small Indonesian food businesses.
+            <br />
+            <strong>Action:</strong> Write 3 Instagram captions for spicy cassava chips…
+            <br />
+            <span className="text-muted italic">+ Indonesian translation, CRAFT check, vocabulary and Socratic questions</span>
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-3">
+        {[
+          {
+            href: "/studio",
+            title: "1 · Project Studio",
+            id: "Rancang proyekmu",
+            body: "Plan your project with design thinking. A Socratic coach asks questions — it never does the thinking for you — and turns your answers into a project brief.",
+          },
+          {
+            href: "/lab",
+            title: "2 · Prompt Lab",
+            id: "Latih prompt-mu",
+            body: "Write a rough idea in any language. Get a faithful translation, three expanded English prompts with Indonesian side-by-side, and tips on what to improve.",
+          },
+          {
+            href: "/portfolio",
+            title: "3 · Portfolio",
+            id: "Kumpulkan hasil kerjamu",
+            body: "Save your best prompts, write what happened when you used them, and export your project brief and prompt log for final assessment.",
+          },
+        ].map((c) => (
+          <Link key={c.href} href={c.href} className="rounded-xl border border-line bg-surface p-5 transition hover:border-accent">
+            <h2 className="font-bold">{c.title}</h2>
+            <p className="mb-2 text-sm text-muted italic">{c.id}</p>
+            <p className="text-sm leading-relaxed">{c.body}</p>
+          </Link>
+        ))}
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-2xl font-bold">The 4-week journey</h2>
+        <ol className="grid gap-3 md:grid-cols-4">
+          {WEEKS.map((w) => (
+            <li key={w.n}>
+              <Link href={`/course/week-${w.n}`} className="block h-full rounded-xl border border-line bg-surface p-4 hover:border-accent">
+                <p className="text-xs font-semibold uppercase text-accent">Week {w.n} · {w.stage}</p>
+                <p className="mt-1 font-bold">{w.title}</p>
+                <p className="mt-2 text-sm text-muted">Output: {w.out}</p>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
     </div>
   );
 }
